@@ -5,7 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'%3E%3Cstop offset='0%' stop-color='%235f72ff'/%3E%3Cstop offset='100%' stop-color='%2392effd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M20 36c3 4 7 6 12 6s9-2 12-6' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='26' r='4' fill='%23fff'/%3E%3Ccircle cx='40' cy='26' r='4' fill='%23fff'/%3E%3C/svg%3E">
+    <script>
+      (function () {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (error) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -16,20 +33,22 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{{ url_for('index') }}">My Website</a>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="{{ url_for('index') }}">The <span class="brand-emphasis">PURR</span>totype Lab</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav align-items-lg-center">
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('index') }}">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('test_execute_function') }}">Run Functions</a>
-          </li>
         </ul>
+        <div class="ms-lg-auto mt-3 mt-lg-0">
+          <button class="btn btn-outline-secondary btn-sm theme-toggle" type="button" data-theme-toggle aria-label="Toggle color mode">
+            <i class="bi bi-moon-stars"></i>
+          </button>
+        </div>
       </div>
     </nav>
 
@@ -40,6 +59,46 @@
     <!-- Optional JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      (function () {
+        const root = document.documentElement;
+        const toggleBtn = document.querySelector('[data-theme-toggle]');
+        if (!toggleBtn) {
+          return;
+        }
+        const icon = toggleBtn.querySelector('i');
 
-</body>
+        const updateToggle = (theme) => {
+          if (!icon) {
+            return;
+          }
+          if (theme === 'dark') {
+            icon.classList.remove('bi-moon-stars');
+            icon.classList.add('bi-sun');
+            toggleBtn.setAttribute('title', 'Switch to light mode');
+          } else {
+            icon.classList.remove('bi-sun');
+            icon.classList.add('bi-moon-stars');
+            toggleBtn.setAttribute('title', 'Switch to dark mode');
+          }
+        };
+
+        const currentTheme = root.getAttribute('data-theme') || 'light';
+        updateToggle(currentTheme);
+
+        toggleBtn.addEventListener('click', () => {
+          const activeTheme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+          const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+          root.setAttribute('data-theme', nextTheme);
+          try {
+            localStorage.setItem('theme', nextTheme);
+          } catch (error) {
+            // localStorage might be unavailable; fail silently
+          }
+          updateToggle(nextTheme);
+        });
+      })();
+    </script>
+
+  </body>
 </html>
