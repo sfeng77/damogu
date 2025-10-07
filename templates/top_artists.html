@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Top Artists{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h1 class="text-center mb-4">My Top Artists</h1>
+
+  {% if top_artists %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+      {% for artist in top_artists %}
+        {% set image = (artist.images | default([])) | first %}
+        <div class="col">
+          <div class="card h-100">
+            {% if image %}
+              <img src="{{ image.url }}" class="card-img-top" alt="{{ artist.name }} image">
+            {% else %}
+              <div class="ratio ratio-1x1 bg-light d-flex align-items-center justify-content-center text-muted">
+                No image
+              </div>
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ artist.name }}</h5>
+              <p class="card-text text-muted">
+                {{ artist.genres | default([]) | join(', ') if artist.genres else 'Genres unavailable' }}
+              </p>
+              <a href="{{ artist.external_urls.spotify }}" target="_blank" class="btn btn-primary">View on Spotify</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-muted">No top artists available right now.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environment & auth secrets
+.env
+.env.*
+.cache
+
+# Flask/instance data
+instance/
+
+# Logs & temp files
+*.log
+*.tmp
+
+# OS metadata
+.DS_Store
+Thumbs.db

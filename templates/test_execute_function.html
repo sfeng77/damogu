@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<button onclick="executeFunction('function1')">Function 1</button>
+<button onclick="executeFunction('function2')">Function 2</button>
+<div id="output"></div>
+
+<script>
+    function executeFunction(functionName) {
+        $.post('/execute_function', {'function_name': functionName}, function(response) {
+            $('#output').text(response.output || 'No response received.');
+        }, 'json').fail(function() {
+            $('#output').text('Error executing function.');
+        });
+    }
+</script>
+{% endblock %}
