@@ -1,17 +1,16 @@
 # Personal Hobby Site
 
-A small Flask application that renders static pages plus a Spotify-powered Top Artists view.
+A small Flask application that serves a personal homepage, hobby list, and a simple function execution demo.
 
 ## Features
 
-- Flask routes for home, hobbies, a simple function execution demo, and Spotify top artists
-- Spotify OAuth implemented with Spotipy using only the user-top-read scope
-- Responsive Bootstrap 5 layout with safe fallbacks for missing images/genres
+- Flask routes for home, hobbies, and a button-triggered server action demo
+- Bootstrap 5 layout for quick styling
+- Minimal Python stack that's easy to extend later
 
 ## Requirements
 
 - Python 3.8+
-- Spotify developer application with Authorization Code flow enabled (PKCE is supported by Spotipy)
 
 ## Setup
 
@@ -25,53 +24,30 @@ A small Flask application that renders static pages plus a Spotify-powered Top A
    `ash
    pip install -r requirements.txt
    `
-3. Create a .env file in the project root (or export the variables in your shell) with:
+3. Start the development server:
    `ash
-   SPOTIPY_CLIENT_ID=your_client_id
-   SPOTIPY_CLIENT_SECRET=your_client_secret
-   SPOTIFY_REDIRECT_URI=http://127.0.0.1:5000/callback
+   flask --app app run --debug
    `
-4. In the Spotify Developer Dashboard, add the same redirect URI to your application settings.
 
-## Running Locally
+## Available Routes
 
-`ash
-flask --app app run --debug
-`
-
-The app serves:
-
-- / - Home page
-- /hobbies - Static hobbies page
-- /top_artists - Displays your Spotify top artists
-- /test_execute_function - Demonstrates server-triggered actions via AJAX
-
-Visit http://127.0.0.1:5000/top_artists after authenticating with Spotify to see the personalized artist list.
-
-## Privacy Notes
-
-- Only the user-top-read scope is requested, so the app never touches playlists, email, or other private profile data.
-- Tokens are managed by Spotipy on the server; no Spotify credentials are stored client-side.
-- Rotate client secrets in the Spotify dashboard if they were previously committed to version control.
+- / – Home page
+- /hobbies – Static hobbies page
+- /test_execute_function – Demonstrates server-triggered actions via AJAX
 
 ## Deploying to Vercel
 
 1. Push this project to a GitHub repository (main branch recommended).
-2. Install the Vercel CLI and link the project (or connect the GitHub repo in the Vercel dashboard):
+2. Install the Vercel CLI and link the project (or connect the repo in the Vercel dashboard):
    `ash
    npm i -g vercel
    vercel login
    vercel link
    `
-3. Add the required environment variables in Vercel (Project Settings ? Environment Variables or via CLI):
-   `ash
-   vercel env add SPOTIPY_CLIENT_ID
-   vercel env add SPOTIPY_CLIENT_SECRET
-   vercel env add SPOTIFY_REDIRECT_URI  # e.g. https://your-project.vercel.app/callback
-   `
-4. Deploy:
+3. Deploy:
    `ash
    vercel --prod
    `
    Vercel reads ercel.json, builds the Flask app with @vercel/python, and routes all traffic to pp.py.
-5. Update the redirect URI in the Spotify Developer Dashboard to match the production URL (for example https://your-project.vercel.app/callback).
+
+Once you redesign new features, add the routes/templates and redeploy.

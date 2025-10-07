@@ -1,6 +1,4 @@
 from flask import Flask, jsonify, render_template, request
-
-from spotify import get_top_artists
 from test_execution_buttons import function1, function2
 
 app = Flask(__name__)
@@ -12,11 +10,6 @@ def index():
 @app.route('/hobbies')
 def hobbies():
     return render_template('hobbies.html')
-
-@app.route('/top_artists')
-def top_artists():
-    artists = get_top_artists(limit=10)
-    return render_template('top_artists.html', top_artists=artists)
 
 @app.route('/test_execute_function')
 def test_execute_function():
