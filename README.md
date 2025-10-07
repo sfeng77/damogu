@@ -41,10 +41,10 @@ flask --app app run --debug
 
 The app serves:
 
-- `/` – Home page
-- `/hobbies` – Static hobbies page
-- `/top_artists` – Displays your Spotify top artists
-- `/test_execute_function` – Demonstrates server-triggered actions via AJAX
+- `/` - Home page
+- `/hobbies` - Static hobbies page
+- `/top_artists` - Displays your Spotify top artists
+- `/test_execute_function` - Demonstrates server-triggered actions via AJAX
 
 Visit `http://localhost:5000/top_artists` after authenticating with Spotify to see the personalized artist list.
 
@@ -53,3 +53,25 @@ Visit `http://localhost:5000/top_artists` after authenticating with Spotify to s
 - Only the `user-top-read` scope is requested, so the app never touches playlists, email, or other private profile data.
 - Tokens are managed by Spotipy on the server; no Spotify credentials are stored client-side.
 - Rotate client secrets in the Spotify dashboard if they were previously committed to version control.
+
+## Deploying to Vercel
+
+1. Push this project to a GitHub repository (`main` branch recommended).
+2. Install the Vercel CLI and link the project (or connect the GitHub repo in the Vercel dashboard):
+   ```bash
+   npm i -g vercel
+   vercel login
+   vercel link
+   ```
+3. Add the required environment variables in Vercel (Project Settings ? Environment Variables or via CLI):
+   ```bash
+   vercel env add SPOTIPY_CLIENT_ID
+   vercel env add SPOTIPY_CLIENT_SECRET
+   vercel env add SPOTIFY_REDIRECT_URI  # e.g. https://your-project.vercel.app/callback
+   ```
+4. Deploy:
+   ```bash
+   vercel --prod
+   ```
+   Vercel reads `vercel.json`, builds the Flask app with `@vercel/python`, and routes all traffic to `app.py`.
+5. Update the redirect URI in the Spotify Developer Dashboard to match the production URL (for example `https://your-project.vercel.app/callback`).
