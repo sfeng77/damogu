@@ -1,19 +1,20 @@
-# Personal Hobby Site
+﻿# The Purrtotype Lab
 
-A small Flask application that serves a personal homepage, polished hobby showcase, and a simple function execution demo. The stack stays intentionally light so you can iterate quickly.
+A small Flask site for experiments, hobbies, and cozy updates. The layout includes a hero landing page, a Markdown-powered notes section, and a simple function demo for future tinkering.
 
 ## Features
 
-- Hero landing section with personal introduction and social handles
-- Styled hobbies grid using Bootstrap 5 cards and custom CSS
-- Test page that demonstrates triggering server-side Python functions via AJAX
-- Ready-to-deploy configuration for Vercel
+- Hero landing section with social links and a dark/light theme toggle
+- Notes hub that renders Markdown files from the content/ directory into pages
+- Styled hobby cards and reusable UI components built on Bootstrap 5
+- Test page that showcases triggering server actions via AJAX
+- Ready-to-deploy configuration for Vercel (including favicons and PWA manifest)
 
 ## Requirements
 
 - Python 3.8+
 
-## Setup
+## Local Setup
 
 1. Create and activate a virtual environment:
    `ash
@@ -29,23 +30,28 @@ A small Flask application that serves a personal homepage, polished hobby showca
    `ash
    flask --app app run --debug
    `
+4. Visit http://127.0.0.1:5000/ to see the site.
+
+## Writing New Notes
+
+1. Add a Markdown file to the content/ folder, e.g. content/my-update.md.
+2. Put a # Heading on the first line (used as the page title).
+3. Write the rest of the note in Markdown. Code blocks, tables, and inline code are supported.
+4. The note appears automatically:
+   - List view: http://127.0.0.1:5000/notes/
+   - Detail page: http://127.0.0.1:5000/notes/my-update/
 
 ## Available Routes
 
-- / � Home page with intro, highlights, and social links
-- /hobbies � Curated grid of hobbies
-- /test_execute_function � Demonstrates server-triggered actions via AJAX
-
-## Customisation Tips
-
-- Update 	emplates/index.html with your real name plus Instagram and Xiaohongshu handles/URLs.
-- Tweak colours and layout in static/css/main.css to match your personal branding.
-- Expand the hobbies list or add new sections as you build out more content.
+- / – Landing page and hero section
+- /notes/ – List of all Markdown notes
+- /notes/<slug>/ – Individual note rendered from Markdown
+- /test_execute_function – Button page that calls server functions via AJAX
 
 ## Deploying to Vercel
 
 1. Push this project to a GitHub repository (main branch recommended).
-2. Install the Vercel CLI and link the project (or connect the repo in the Vercel dashboard):
+2. Link the repo in Vercel or use the CLI:
    `ash
    npm i -g vercel
    vercel login
@@ -56,5 +62,13 @@ A small Flask application that serves a personal homepage, polished hobby showca
    vercel --prod
    `
    Vercel reads ercel.json, builds the Flask app with @vercel/python, and routes all traffic to pp.py.
+4. Manage environment variables (if needed later) under *Project Settings → Environment Variables*.
 
-When you are ready to add new features, create the routes/templates, commit, and redeploy.
+## Customisation Tips
+
+- Edit 	emplates/index.html to update your name, introduction, and social handles.
+- Adjust colours and spacing in static/css/main.css to evolve the visual identity.
+- Drop new Markdown files in content/ whenever you want to publish another note.
+- Replace favicons in static/favicon/ to match your personal branding.
+
+Happy building! If you add bigger features, keep the pattern: create a route, a template, some CSS, and a Markdown file when appropriate.
