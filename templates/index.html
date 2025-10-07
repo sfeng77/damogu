@@ -3,6 +3,68 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <h1>Welcome to my website!</h1>
-  <p>Here you can learn more about me and my hobbies.</p>
+  <section class="hero p-5 my-4">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-8">
+        <p class="section-heading mb-2">Hello there</p>
+        <h1 class="display-5 fw-semibold mb-3">I'm <span class="fw-bold">MushroomLord</span>.</h1>
+        <p class="lead mb-4">I design tiny AI apps while learning, document journeys with my camera, and collect cozy moments with my cats. This site is my notebook for side projects, reflections, and ideas I want to explore next.</p>
+        <div class="d-flex flex-wrap align-items-center gap-3">
+          <div class="social-links">
+            <a href="https://www.instagram.com/mushroom4876" class="text-decoration-none" aria-label="Instagram" target="_blank" rel="noopener">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a href="https://www.xiaohongshu.com/user/profile/大蘑菇蘑菇大" class="text-decoration-none" aria-label="Xiaohongshu" target="_blank" rel="noopener">
+              <i class="bi bi-journal-richtext"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="py-5">
+    <div class="content-card mx-auto">
+      <p class="section-heading mb-2">What brings me joy</p>
+      <h2 class="h3 fw-semibold mb-4">A handful of hobbies I keep coming back to</h2>
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-4">
+          <div class="section-card p-4 h-100 text-center">
+            <i class="bi bi-cpu text-primary fs-3 mb-3"></i>
+            <h3 class="h5">Building AI experiments</h3>
+            <p class="mb-0 small text-muted">Shipping playful tools that help me learn faster and automate the boring bits.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div class="section-card p-4 h-100 text-center">
+            <i class="bi bi-camera2 text-primary fs-3 mb-3"></i>
+            <h3 class="h5">Travel photo diaries</h3>
+            <p class="mb-0 small text-muted">Collecting snapshots of new destinations and the stories I find along the way.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div class="section-card p-4 h-100 text-center">
+            <i class="bi bi-emoji-smile text-primary fs-3 mb-3"></i>
+            <h3 class="h5">Cat-powered recharge</h3>
+            <p class="mb-0 small text-muted">Defining success as a perfect nap surrounded by two very spoiled cats.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div class="section-card p-4 h-100 text-center">
+            <i class="bi bi-bricks text-primary fs-3 mb-3"></i>
+            <h3 class="h5">Lego &amp; 3D tinkering</h3>
+            <p class="mb-0 small text-muted">Mixing bricks and custom prints to build miniature worlds and prototypes.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div class="section-card p-4 h-100 text-center">
+            <i class="bi bi-controller text-primary fs-3 mb-3"></i>
+            <h3 class="h5">Casual gaming nights</h3>
+            <p class="mb-0 small text-muted">Switching off with cozy games that balance out all the making and traveling.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}
+

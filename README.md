@@ -1,12 +1,13 @@
 # Personal Hobby Site
 
-A small Flask application that serves a personal homepage, hobby list, and a simple function execution demo.
+A small Flask application that serves a personal homepage, polished hobby showcase, and a simple function execution demo. The stack stays intentionally light so you can iterate quickly.
 
 ## Features
 
-- Flask routes for home, hobbies, and a button-triggered server action demo
-- Bootstrap 5 layout for quick styling
-- Minimal Python stack that's easy to extend later
+- Hero landing section with personal introduction and social handles
+- Styled hobbies grid using Bootstrap 5 cards and custom CSS
+- Test page that demonstrates triggering server-side Python functions via AJAX
+- Ready-to-deploy configuration for Vercel
 
 ## Requirements
 
@@ -31,9 +32,15 @@ A small Flask application that serves a personal homepage, hobby list, and a sim
 
 ## Available Routes
 
-- / – Home page
-- /hobbies – Static hobbies page
-- /test_execute_function – Demonstrates server-triggered actions via AJAX
+- / ï¿½ Home page with intro, highlights, and social links
+- /hobbies ï¿½ Curated grid of hobbies
+- /test_execute_function ï¿½ Demonstrates server-triggered actions via AJAX
+
+## Customisation Tips
+
+- Update 	emplates/index.html with your real name plus Instagram and Xiaohongshu handles/URLs.
+- Tweak colours and layout in static/css/main.css to match your personal branding.
+- Expand the hobbies list or add new sections as you build out more content.
 
 ## Deploying to Vercel
 
@@ -50,4 +57,4 @@ A small Flask application that serves a personal homepage, hobby list, and a sim
    `
    Vercel reads ercel.json, builds the Flask app with @vercel/python, and routes all traffic to pp.py.
 
-Once you redesign new features, add the routes/templates and redeploy.
+When you are ready to add new features, create the routes/templates, commit, and redeploy.
