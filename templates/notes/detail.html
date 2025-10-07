@@ -1,0 +1,21 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+  <section class="py-5">
+    <div class="content-card mx-auto">
+      <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+        <div>
+          <p class="section-heading mb-1">Lab Note</p>
+        </div>
+        <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('notes_index') }}">
+          <i class="bi bi-arrow-left me-2"></i>Back to notes
+        </a>
+      </div>
+      <article class="markdown-body">
+        {{ article.html | safe }}
+      </article>
+    </div>
+  </section>
+{% endblock %}
