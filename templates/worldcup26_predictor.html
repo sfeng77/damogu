@@ -49,9 +49,7 @@
       </div>
       <div class="d-flex gap-2">
         <button class="btn btn-outline-secondary btn-sm" id="reset-bracket">Reset bracket</button>
-        <button class="btn btn-outline-primary btn-sm" id="export-json">Export</button>
-        <button class="btn btn-outline-primary btn-sm" id="import-json">Import</button>
-        <input type="file" id="import-file" accept="application/json" class="d-none">
+        <button class="btn btn-outline-primary btn-sm" id="share-link">Share link</button>
       </div>
     </div>
     <div id="bracket" class="bracket-wrapper"></div>
@@ -63,5 +61,4 @@
 {% block scripts %}
 <script type="module" src="{{ url_for('static', filename='js/wc26_predictor.js') }}"></script>
 {% endblock %}
-
 

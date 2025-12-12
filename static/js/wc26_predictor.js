@@ -216,12 +216,14 @@ const deepClone = (obj) =>
     ? structuredClone(obj)
     : JSON.parse(JSON.stringify(obj));
 
+const urlState = decodeStateFromUrl();
 const saved = JSON.parse(localStorage.getItem("wc26-state") || "{}");
-let picks = saved.picks || buildDefaultPicks(defaultGroups);
+const initial = urlState || saved;
+let picks = initial.picks || buildDefaultPicks(defaultGroups);
 picks = picks || {};
-let thirdSelected = new Set(saved.thirdSelected || Object.keys(defaultGroups).slice(0, 8));
-let thirdAssignments = saved.thirdAssignments || {};
-let matchWinners = saved.matchWinners || {};
+let thirdSelected = new Set(initial.thirdSelected || Object.keys(defaultGroups).slice(0, 8));
+let thirdAssignments = initial.thirdAssignments || {};
+let matchWinners = initial.matchWinners || {};
 normalizeState();
 saveState();
 
@@ -246,6 +248,43 @@ function buildDependents(ms) {
     });
   });
   return map;
+}
+
+// --- Share/encode helpers ----------------------------------------------------
+function encodeStateForUrl(state) {
+  const json = JSON.stringify(state);
+  const bytes = new TextEncoder().encode(json);
+  let binary = "";
+  bytes.forEach(b => { binary += String.fromCharCode(b); });
+  const b64 = btoa(binary)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "");
+  return b64;
+}
+
+function decodeStateFromUrl() {
+  const url = new URL(window.location.href);
+  const s = url.searchParams.get("s") || (url.hash.startsWith("#s=") ? url.hash.slice(3) : "");
+  if (!s) return null;
+  try {
+    const b64 = s.replace(/-/g, "+").replace(/_/g, "/");
+    const pad = b64.length % 4 ? "=".repeat(4 - (b64.length % 4)) : "";
+    const binary = atob(b64 + pad);
+    const bytes = Uint8Array.from(binary, ch => ch.charCodeAt(0));
+    const json = new TextDecoder().decode(bytes);
+    const parsed = JSON.parse(json);
+    // Normalize shape to our expected keys
+    return {
+      picks: parsed.p || parsed.picks,
+      thirdSelected: parsed.t || parsed.thirdSelected,
+      thirdAssignments: parsed.a || parsed.thirdAssignments,
+      matchWinners: parsed.w || parsed.matchWinners,
+    };
+  } catch (err) {
+    console.warn("Failed to decode shared state", err);
+    return null;
+  }
 }
 
 // Migrate legacy saved state (object-based standings) to array order.
@@ -724,39 +763,31 @@ document.getElementById("reset-bracket").addEventListener("click", () => {
   renderAll();
 });
 
-document.getElementById("export-json").addEventListener("click", () => {
-  const data = localStorage.getItem("wc26-state") || "{}";
-  const blob = new Blob([data], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "wc26-picks.json";
-  a.click();
-  URL.revokeObjectURL(url);
-});
-
-document.getElementById("import-json").addEventListener("click", () => {
-  document.getElementById("import-file").click();
-});
-
-document.getElementById("import-file").addEventListener("change", (e) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-  file.text().then(text => {
+const shareBtn = document.getElementById("share-link");
+if (shareBtn) {
+  shareBtn.addEventListener("click", async () => {
+    const state = {
+      p: picks,
+      t: Array.from(thirdSelected),
+      a: thirdAssignments,
+      w: matchWinners,
+    };
+    const payload = encodeStateForUrl(state);
+    const base = new URL(window.location.href);
+    base.search = "";
+    base.hash = "";
+    base.searchParams.set("s", payload);
+    const shareUrl = base.toString();
     try {
-      const data = JSON.parse(text);
-      picks = data.picks || buildDefaultPicks(defaultGroups);
-      thirdSelected = new Set(data.thirdSelected || []);
-      thirdAssignments = data.thirdAssignments || {};
-      matchWinners = data.matchWinners || {};
-      normalizeState();
-      saveState();
-      renderAll();
+      await navigator.clipboard.writeText(shareUrl);
+      shareBtn.textContent = "Link copied!";
+      setTimeout(() => (shareBtn.textContent = "Share link"), 1500);
     } catch (err) {
-      alert("Import failed: invalid JSON");
+      alert("Copy failed. Here is your link:\n" + shareUrl);
     }
+    // Keep URL clean (do not modify current history)
   });
-});
+}
 
 // --- Init --------------------------------------------------------------------
 function renderAll() {
