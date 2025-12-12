@@ -591,7 +591,9 @@ function renderSide(side) {
     sideConfig[side].rounds[round].forEach(matchId => {
       const match = getMatch(matchId);
       if (!match) return;
-      const card = renderMatchCard(match);
+      const card = renderMatchCard(match, side);
+      card.dataset.side = side;
+      card.dataset.round = match.round;
       const row = rowMap[side][matchId];
       if (row) card.style.gridRow = row + 1; // offset by header row
       column.appendChild(card);
@@ -669,10 +671,12 @@ function renderCenter() {
   return center;
 }
 
-function renderMatchCard(match) {
+function renderMatchCard(match, side) {
   const card = document.createElement("div");
   card.className = "match-card";
   card.dataset.matchId = match.id;
+  if (side) card.dataset.side = side;
+  card.dataset.round = match.round;
 
   const resolvedSlots = match.slots.map(resolveSlot);
   const selectable = resolvedSlots.every(Boolean);

@@ -17,6 +17,13 @@
   --bs-body-color: var(--color-text);
   --brand-highlight-start: #f97316;
   --brand-highlight-end: #facc15;
+  --round-r32: rgba(14, 165, 233, 0.12);
+  --round-r16: rgba(76, 29, 149, 0.12);
+  --round-qf: rgba(234, 88, 12, 0.12);
+  --round-sf: rgba(16, 185, 129, 0.12);
+  --round-final: rgba(234, 179, 8, 0.14);
+  --side-left: #6366f1;
+  --side-right: #0ea5e9;
 }
 
 [data-theme="dark"] {
@@ -420,11 +427,11 @@ footer {
 }
 
 .bracket-side.left .match-card {
-  border-left: 4px solid var(--gradient-start);
+  border-left: 4px solid var(--side-left);
 }
 
 .bracket-side.right .match-card {
-  border-right: 4px solid var(--gradient-end);
+  border-right: 4px solid var(--side-right);
 }
 
 .round-column {
@@ -453,6 +460,28 @@ footer {
   position: relative;
   z-index: 1;
   width: 100%;
+}
+
+.match-card[data-round="R32"] {
+  background: linear-gradient(180deg, var(--round-r32), transparent);
+}
+.match-card[data-round="R16"] {
+  background: linear-gradient(180deg, var(--round-r16), transparent);
+}
+.match-card[data-round="QF"] {
+  background: linear-gradient(180deg, var(--round-qf), transparent);
+}
+.match-card[data-round="SF"] {
+  background: linear-gradient(180deg, var(--round-sf), transparent);
+}
+.match-card[data-round="Final"],
+.match-card[data-round="Third"] {
+  background: linear-gradient(180deg, var(--round-final), transparent);
+}
+
+.match-label {
+  border-left: 3px solid rgba(148, 163, 184, 0.5);
+  padding-left: 0.35rem;
 }
 
 .match-label {
