@@ -33,6 +33,7 @@
 <section class="py-4">
   <div class="content-card mx-auto">
     <div class="d-flex flex-column flex-lg-row gap-4">
+      <div class="flex-fill">
         <h2 class="h5 fw-semibold mb-3">Step 2 · Choose best third-placed teams (8 of 12)</h2>
         <p class="small text-muted mb-3">Only selected third-place teams can be used in eligible Round-of-32 slots.</p>
         <div id="third-place" class="row g-3"></div>
@@ -61,4 +62,3 @@
 {% block scripts %}
 <script type="module" src="{{ url_for('static', filename='js/wc26_predictor.js') }}"></script>
 {% endblock %}
-

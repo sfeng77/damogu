@@ -595,8 +595,7 @@ function renderSide(side) {
     sideEl.appendChild(column);
   });
 
-  // connectors (draw after DOM attach)
-  requestAnimationFrame(() => drawConnectors(sideEl, side));
+  // Connectors disabled (kept cleaner/compact for mobile + readability)
   return sideEl;
 }
 
@@ -611,14 +610,18 @@ function drawConnectors(sideEl, side) {
   const edgeList = edges[side];
   if (!edgeList) return;
 
-  const getCenter = (matchId) => {
+  const getBox = (matchId) => {
     const el = sideEl.querySelector(`[data-match-id="${matchId}"]`);
     if (!el) return null;
     const rect = el.getBoundingClientRect();
     const parentRect = sideEl.getBoundingClientRect();
     return {
-      x: rect.left - parentRect.left + rect.width / 2,
-      y: rect.top - parentRect.top + rect.height / 2
+      left: rect.left - parentRect.left,
+      right: rect.right - parentRect.left,
+      top: rect.top - parentRect.top,
+      bottom: rect.bottom - parentRect.top,
+      cx: rect.left - parentRect.left + rect.width / 2,
+      cy: rect.top - parentRect.top + rect.height / 2,
     };
   };
 
@@ -628,16 +631,33 @@ function drawConnectors(sideEl, side) {
   svg.setAttribute("height", containerRect.height);
 
   edgeList.forEach(([from, to]) => {
-    const a = getCenter(from);
-    const b = getCenter(to);
+    const a = getBox(from);
+    const b = getBox(to);
     if (!a || !b) return;
-    const midX = side === "left" ? Math.max(a.x, b.x) : Math.min(a.x, b.x);
+
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+    // Choose endpoints on the edges that face each other, so anchors always point toward the next card.
+    // This avoids relying on "left/right side" assumptions if layout/round ordering changes.
+    const dx = b.cx - a.cx;
+    const startX = dx >= 0 ? a.right : a.left;
+    const endX = dx >= 0 ? b.left : b.right;
+    const startY = a.cy;
+    const endY = b.cy;
+
+    const safeStartX = clamp(startX, 0, containerRect.width);
+    const safeEndX = clamp(endX, 0, containerRect.width);
+    const midX = dx >= 0
+      ? (a.right + b.left) / 2
+      : (a.left + b.right) / 2;
+    const safeMidX = clamp(midX, 0, containerRect.width);
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    const d = `M ${a.x} ${a.y} L ${midX} ${a.y} L ${midX} ${b.y} L ${b.x} ${b.y}`;
+    const d = `M ${safeStartX} ${startY} L ${safeMidX} ${startY} L ${safeMidX} ${endY} L ${safeEndX} ${endY}`;
     path.setAttribute("d", d);
     path.setAttribute("fill", "none");
     path.setAttribute("stroke", "rgba(99, 102, 241, 0.4)");
     path.setAttribute("stroke-width", "2");
+    path.setAttribute("stroke-linecap", "round");
     path.setAttribute("stroke-linejoin", "round");
     svg.appendChild(path);
   });
