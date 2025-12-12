@@ -214,7 +214,8 @@ a:hover {
 .section-card p.small,
 .section-card p.small.text-muted,
 .section-card p.text-muted {
-  color: var(--color-muted) !important;
+  color: var(--color-text) !important;
+  opacity: 0.85;
 }
 
 .social-links a {
@@ -246,7 +247,7 @@ a:hover {
 .content-card .text-muted,
 .content-card .small.text-muted {
   color: var(--color-text);
-  opacity: 0.82;
+  opacity: 0.85;
 }
 
 .draggable-list {
