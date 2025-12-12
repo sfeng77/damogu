@@ -398,7 +398,7 @@ function renderGroups() {
             <div class="draggable-team" draggable="true" data-group="${group}" data-rank="${idx}">
               <div class="handle">&#9776;</div>
               <span class="rank-pill">${idx + 1}${["st","nd","rd","th"][Math.min(idx,3)]}</span>
-              <input class="form-control form-control-sm team-input flex-fill" data-group="${group}" data-rank="${idx}" value="${team}">
+              <span class="team-name flex-fill">${team}</span>
             </div>
           `).join("")}
         </div>
@@ -407,18 +407,6 @@ function renderGroups() {
       </div>
     `;
     groupStageEl.appendChild(card);
-  });
-
-  groupStageEl.querySelectorAll(".team-input").forEach(input => {
-    input.addEventListener("input", (e) => {
-      const group = e.target.dataset.group;
-      const rank = Number(e.target.dataset.rank);
-      const val = e.target.value || `Team ${group}${rank+1}`;
-      picks[group][rank] = val;
-      teams[group][rank] = val;
-      invalidateBracket();
-      renderAll();
-    });
   });
 
   // Drag-and-drop reorder
@@ -451,7 +439,7 @@ function renderGroups() {
       const data = JSON.parse(e.dataTransfer.getData("text/plain") || "{}");
       const group = data.group;
       if (!group) return;
-      const newOrder = Array.from(listEl.querySelectorAll(".draggable-team")).map(el => el.querySelector(".team-input").value);
+      const newOrder = Array.from(listEl.querySelectorAll(".draggable-team")).map(el => el.querySelector(".team-name").textContent);
       picks[group] = newOrder;
       teams[group] = [...newOrder];
       invalidateBracket();

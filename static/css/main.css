@@ -268,6 +268,12 @@ a:hover {
   text-align: center;
 }
 
+.team-name {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
 .draggable-team .handle {
   cursor: grab;
   font-size: 1rem;
