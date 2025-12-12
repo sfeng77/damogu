@@ -413,16 +413,12 @@ function setupBracketEvents() {
     const thirdSelect = e.target.closest(".third-select");
     if (thirdSelect) {
       const key = thirdSelect.dataset.key;
-      const matchId = thirdSelect.dataset.match;
       if (!key) return;
       const val = thirdSelect.value;
       if (!val) {
         delete thirdAssignments[key];
       } else {
         thirdAssignments[key] = val;
-      }
-      if (matchId) {
-        clearDependentFrom([matchId]);
       }
       renderAll();
       return;
@@ -499,7 +495,6 @@ function renderGroups() {
       if (!group) return;
       const newOrder = Array.from(listEl.querySelectorAll(".draggable-team")).map(el => el.querySelector(".team-name").textContent);
       picks[group] = newOrder;
-      clearAllWinners();
       renderAll();
     });
   });
@@ -554,7 +549,6 @@ function renderThirdPlace() {
           if (val === group) delete thirdAssignments[k];
         });
       }
-      clearDependentFrom(thirdSlotMatchIds);
       renderAll();
     });
   });
