@@ -46,6 +46,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('notes_index') }}">Notes</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('worldcup26_predictor') }}">WC26 Predictor</a>
+          </li>
         </ul>
         <div class="ms-lg-auto mt-3 mt-lg-0">
           <button class="btn btn-outline-secondary btn-sm theme-toggle" type="button" data-theme-toggle aria-label="Toggle color mode">
@@ -102,6 +105,7 @@
         });
       })();
     </script>
+    {% block scripts %}{% endblock %}
 
   </body>
 </html>

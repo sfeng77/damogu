@@ -71,6 +71,14 @@ def get_article(slug: str):
 def index():
     return render_template('index.html')
 
+@app.route('/worldcup26/predictor')
+def worldcup26_predictor():
+    """
+    Interactive bracket builder for FIFA World Cup 2026.
+    Groups/fixtures are kept client-side to stay easy to update while qualifiers finish.
+    """
+    return render_template('worldcup26_predictor.html')
+
 @app.route('/notes/')
 def notes_index():
     articles = get_all_articles()
@@ -100,4 +108,3 @@ def execute_function():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
