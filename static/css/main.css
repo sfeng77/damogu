@@ -603,6 +603,7 @@ footer {
   left: 0;
   pointer-events: none;
   z-index: 0;
+  mix-blend-mode: multiply;
 }
 
 @media (max-width: 991.98px) {
