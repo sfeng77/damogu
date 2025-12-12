@@ -15,135 +15,135 @@
 
 // Round of 32 & onward mapping (official slots, Dec 2025)
 const matches = [
-  { id: "M73", round: "R32", label: "73 · A2 vs B2", slots: [
+  { id: "M73", round: "R32", label: "73 · A2 vs B2", date: "Jun 28", city: "Los Angeles", slots: [
       { type: "group", group: "A", position: 2 },
       { type: "group", group: "B", position: 2 }
     ]},
-  { id: "M74", round: "R32", label: "74 · E1 vs 3rd A/B/C/D/F", slots: [
+  { id: "M74", round: "R32", label: "74 · E1 vs 3rd A/B/C/D/F", date: "Jun 29", city: "San Francisco", slots: [
       { type: "group", group: "E", position: 1 },
       { type: "third", eligible: ["A","B","C","D","F"], key: "T74" }
     ]},
-  { id: "M75", round: "R32", label: "75 · F1 vs C2", slots: [
+  { id: "M75", round: "R32", label: "75 · F1 vs C2", date: "Jun 29", city: "Seattle", slots: [
       { type: "group", group: "F", position: 1 },
       { type: "group", group: "C", position: 2 }
     ]},
-  { id: "M76", round: "R32", label: "76 · C1 vs F2", slots: [
+  { id: "M76", round: "R32", label: "76 · C1 vs F2", date: "Jun 30", city: "Vancouver", slots: [
       { type: "group", group: "C", position: 1 },
       { type: "group", group: "F", position: 2 }
     ]},
-  { id: "M77", round: "R32", label: "77 · I1 vs 3rd C/D/F/G/H", slots: [
+  { id: "M77", round: "R32", label: "77 · I1 vs 3rd C/D/F/G/H", date: "Jun 30", city: "Denver", slots: [
       { type: "group", group: "I", position: 1 },
       { type: "third", eligible: ["C","D","F","G","H"], key: "T77" }
     ]},
-  { id: "M78", round: "R32", label: "78 · E2 vs I2", slots: [
+  { id: "M78", round: "R32", label: "78 · E2 vs I2", date: "Jul 1", city: "Dallas", slots: [
       { type: "group", group: "E", position: 2 },
       { type: "group", group: "I", position: 2 }
     ]},
-  { id: "M79", round: "R32", label: "79 · A1 vs 3rd C/E/F/H/I", slots: [
+  { id: "M79", round: "R32", label: "79 · A1 vs 3rd C/E/F/H/I", date: "Jul 1", city: "Houston", slots: [
       { type: "group", group: "A", position: 1 },
       { type: "third", eligible: ["C","E","F","H","I"], key: "T79" }
     ]},
-  { id: "M80", round: "R32", label: "80 · L1 vs 3rd E/H/I/J/K", slots: [
+  { id: "M80", round: "R32", label: "80 · L1 vs 3rd E/H/I/J/K", date: "Jul 2", city: "Atlanta", slots: [
       { type: "group", group: "L", position: 1 },
       { type: "third", eligible: ["E","H","I","J","K"], key: "T80" }
     ]},
-  { id: "M81", round: "R32", label: "81 · D1 vs 3rd B/E/F/I/J", slots: [
+  { id: "M81", round: "R32", label: "81 · D1 vs 3rd B/E/F/I/J", date: "Jun 28", city: "New York / New Jersey", slots: [
       { type: "group", group: "D", position: 1 },
       { type: "third", eligible: ["B","E","F","I","J"], key: "T81" }
     ]},
-  { id: "M82", round: "R32", label: "82 · G1 vs 3rd A/E/H/I/J", slots: [
+  { id: "M82", round: "R32", label: "82 · G1 vs 3rd A/E/H/I/J", date: "Jun 29", city: "Philadelphia", slots: [
       { type: "group", group: "G", position: 1 },
       { type: "third", eligible: ["A","E","H","I","J"], key: "T82" }
     ]},
-  { id: "M83", round: "R32", label: "83 · K2 vs L2", slots: [
+  { id: "M83", round: "R32", label: "83 · K2 vs L2", date: "Jun 28", city: "Boston", slots: [
       { type: "group", group: "K", position: 2 },
       { type: "group", group: "L", position: 2 }
     ]},
-  { id: "M84", round: "R32", label: "84 · H1 vs J2", slots: [
+  { id: "M84", round: "R32", label: "84 · H1 vs J2", date: "Jun 29", city: "Washington D.C.", slots: [
       { type: "group", group: "H", position: 1 },
       { type: "group", group: "J", position: 2 }
     ]},
-  { id: "M85", round: "R32", label: "85 · B1 vs 3rd E/F/G/I/J", slots: [
+  { id: "M85", round: "R32", label: "85 · B1 vs 3rd E/F/G/I/J", date: "Jul 2", city: "Miami", slots: [
       { type: "group", group: "B", position: 1 },
       { type: "third", eligible: ["E","F","G","I","J"], key: "T85" }
     ]},
-  { id: "M86", round: "R32", label: "86 · J1 vs H2", slots: [
+  { id: "M86", round: "R32", label: "86 · J1 vs H2", date: "Jul 1", city: "Orlando", slots: [
       { type: "group", group: "J", position: 1 },
       { type: "group", group: "H", position: 2 }
     ]},
-  { id: "M87", round: "R32", label: "87 · K1 vs 3rd D/E/I/J/L", slots: [
+  { id: "M87", round: "R32", label: "87 · K1 vs 3rd D/E/I/J/L", date: "Jul 2", city: "Guadalajara", slots: [
       { type: "group", group: "K", position: 1 },
       { type: "third", eligible: ["D","E","I","J","L"], key: "T87" }
     ]},
-  { id: "M88", round: "R32", label: "88 · D2 vs G2", slots: [
+  { id: "M88", round: "R32", label: "88 · D2 vs G2", date: "Jul 1", city: "Mexico City", slots: [
       { type: "group", group: "D", position: 2 },
       { type: "group", group: "G", position: 2 }
     ]},
   // Round of 16
-  { id: "M89", round: "R16", label: "89 · W74 vs W77", slots: [
+  { id: "M89", round: "R16", label: "89 · W74 vs W77", date: "Jul 5", city: "Seattle", slots: [
       { type: "winner", of: "M74" },
       { type: "winner", of: "M77" }
     ]},
-  { id: "M90", round: "R16", label: "90 · W73 vs W75", slots: [
+  { id: "M90", round: "R16", label: "90 · W73 vs W75", date: "Jul 5", city: "San Francisco", slots: [
       { type: "winner", of: "M73" },
       { type: "winner", of: "M75" }
     ]},
-  { id: "M91", round: "R16", label: "91 · W76 vs W78", slots: [
+  { id: "M91", round: "R16", label: "91 · W76 vs W78", date: "Jul 6", city: "Vancouver", slots: [
       { type: "winner", of: "M76" },
       { type: "winner", of: "M78" }
     ]},
-  { id: "M92", round: "R16", label: "92 · W79 vs W80", slots: [
+  { id: "M92", round: "R16", label: "92 · W79 vs W80", date: "Jul 6", city: "Dallas", slots: [
       { type: "winner", of: "M79" },
       { type: "winner", of: "M80" }
     ]},
-  { id: "M93", round: "R16", label: "93 · W83 vs W84", slots: [
+  { id: "M93", round: "R16", label: "93 · W83 vs W84", date: "Jul 5", city: "Boston", slots: [
       { type: "winner", of: "M83" },
       { type: "winner", of: "M84" }
     ]},
-  { id: "M94", round: "R16", label: "94 · W81 vs W82", slots: [
+  { id: "M94", round: "R16", label: "94 · W81 vs W82", date: "Jul 5", city: "Philadelphia", slots: [
       { type: "winner", of: "M81" },
       { type: "winner", of: "M82" }
     ]},
-  { id: "M95", round: "R16", label: "95 · W86 vs W88", slots: [
+  { id: "M95", round: "R16", label: "95 · W86 vs W88", date: "Jul 6", city: "Orlando", slots: [
       { type: "winner", of: "M86" },
       { type: "winner", of: "M88" }
     ]},
-  { id: "M96", round: "R16", label: "96 · W85 vs W87", slots: [
+  { id: "M96", round: "R16", label: "96 · W85 vs W87", date: "Jul 6", city: "Guadalajara", slots: [
       { type: "winner", of: "M85" },
       { type: "winner", of: "M87" }
     ]},
   // Quarter-finals
-  { id: "M97", round: "QF", label: "97 · W89 vs W90", slots: [
+  { id: "M97", round: "QF", label: "97 · W89 vs W90", date: "Jul 10", city: "Los Angeles", slots: [
       { type: "winner", of: "M89" },
       { type: "winner", of: "M90" }
     ]},
-  { id: "M98", round: "QF", label: "98 · W91 vs W92", slots: [
+  { id: "M98", round: "QF", label: "98 · W91 vs W92", date: "Jul 10", city: "Seattle", slots: [
       { type: "winner", of: "M91" },
       { type: "winner", of: "M92" }
     ]},
-  { id: "M99", round: "QF", label: "99 · W93 vs W94", slots: [
+  { id: "M99", round: "QF", label: "99 · W93 vs W94", date: "Jul 11", city: "New York / New Jersey", slots: [
       { type: "winner", of: "M93" },
       { type: "winner", of: "M94" }
     ]},
-  { id: "M100", round: "QF", label: "100 · W95 vs W96", slots: [
+  { id: "M100", round: "QF", label: "100 · W95 vs W96", date: "Jul 11", city: "Miami", slots: [
       { type: "winner", of: "M95" },
       { type: "winner", of: "M96" }
     ]},
   // Semi-finals
-  { id: "M101", round: "SF", label: "101 · W97 vs W98", slots: [
+  { id: "M101", round: "SF", label: "101 · W97 vs W98", date: "Jul 14", city: "Dallas", slots: [
       { type: "winner", of: "M97" },
       { type: "winner", of: "M98" }
     ]},
-  { id: "M102", round: "SF", label: "102 · W99 vs W100", slots: [
+  { id: "M102", round: "SF", label: "102 · W99 vs W100", date: "Jul 14", city: "Atlanta", slots: [
       { type: "winner", of: "M99" },
       { type: "winner", of: "M100" }
     ]},
   // Bronze match & Final
-  { id: "M103", round: "Third", label: "103 · L101 vs L102", slots: [
+  { id: "M103", round: "Third", label: "103 · L101 vs L102", date: "Jul 17", city: "Philadelphia", slots: [
       { type: "loser", of: "M101" },
       { type: "loser", of: "M102" }
     ]},
-  { id: "M104", round: "Final", label: "104 · W101 vs W102", slots: [
+  { id: "M104", round: "Final", label: "104 · W101 vs W102", date: "Jul 18", city: "New York / New Jersey", slots: [
       { type: "winner", of: "M101" },
       { type: "winner", of: "M102" }
     ]}
@@ -668,6 +668,7 @@ function renderMatchCard(match) {
 
   card.innerHTML = `
     <div class="match-label">${match.label}</div>
+    <div class="small text-muted match-meta">${(match.date || "TBD date")} · ${(match.city || "TBD city")}</div>
     ${slotsHtml}
   `;
   return card;
