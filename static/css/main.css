@@ -242,6 +242,13 @@ a:hover {
   box-shadow: 0 12px 30px var(--card-shadow);
 }
 
+/* Improve legibility of helper text on both themes */
+.content-card .text-muted,
+.content-card .small.text-muted {
+  color: var(--color-text);
+  opacity: 0.82;
+}
+
 .draggable-list {
   display: flex;
   flex-direction: column;
