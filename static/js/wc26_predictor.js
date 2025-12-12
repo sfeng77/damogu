@@ -207,6 +207,9 @@ const edges = {
   ]
 };
 
+const thirdSlotMatchIds = matches.filter(m => m.slots.some(s => s.type === "third")).map(m => m.id);
+const dependents = buildDependents(matches);
+
 // --- State -------------------------------------------------------------------
 const deepClone = (obj) =>
   typeof structuredClone === "function"
@@ -229,6 +232,20 @@ function buildDefaultPicks(groupTeams) {
     obj[group] = [...list]; // order = standing 1-4
   });
   return obj;
+}
+
+function buildDependents(ms) {
+  const map = {};
+  ms.forEach((m) => {
+    m.slots.forEach((slot) => {
+      if (slot.type === "winner" || slot.type === "loser") {
+        const src = slot.of;
+        if (!map[src]) map[src] = new Set();
+        map[src].add(m.id);
+      }
+    });
+  });
+  return map;
 }
 
 // Migrate legacy saved state (object-based standings) to array order.
@@ -318,8 +335,24 @@ function getMatch(matchId) {
   return matches.find(m => m.id === matchId);
 }
 
-function invalidateBracket() {
+function clearAllWinners() {
   matchWinners = {};
+  saveState();
+}
+
+function clearDependentFrom(matchIds) {
+  const queue = [...matchIds];
+  const seen = new Set();
+  while (queue.length) {
+    const id = queue.shift();
+    if (seen.has(id)) continue;
+    seen.add(id);
+    delete matchWinners[id];
+    const deps = dependents[id];
+    if (deps) {
+      deps.forEach((d) => queue.push(d));
+    }
+  }
   saveState();
 }
 
@@ -341,6 +374,7 @@ function setupBracketEvents() {
     const thirdSelect = e.target.closest(".third-select");
     if (thirdSelect) {
       const key = thirdSelect.dataset.key;
+      const matchId = thirdSelect.dataset.match;
       if (!key) return;
       const val = thirdSelect.value;
       if (!val) {
@@ -348,7 +382,9 @@ function setupBracketEvents() {
       } else {
         thirdAssignments[key] = val;
       }
-      invalidateBracket();
+      if (matchId) {
+        clearDependentFrom([matchId]);
+      }
       renderAll();
       return;
     }
@@ -424,7 +460,7 @@ function renderGroups() {
       if (!group) return;
       const newOrder = Array.from(listEl.querySelectorAll(".draggable-team")).map(el => el.querySelector(".team-name").textContent);
       picks[group] = newOrder;
-      invalidateBracket();
+      clearAllWinners();
       renderAll();
     });
   });
@@ -479,7 +515,7 @@ function renderThirdPlace() {
           if (val === group) delete thirdAssignments[k];
         });
       }
-      invalidateBracket();
+      clearDependentFrom(thirdSlotMatchIds);
       renderAll();
     });
   });
