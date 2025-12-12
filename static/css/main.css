@@ -67,6 +67,12 @@ a:hover {
   color: var(--color-accent);
 }
 
+.text-muted,
+.small.text-muted {
+  color: var(--color-text) !important;
+  opacity: 0.92;
+}
+
 .navbar {
   background-color: var(--nav-bg);
   box-shadow: 0 2px 10px var(--nav-shadow);
